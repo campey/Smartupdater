@@ -118,6 +118,12 @@
 									es.etag 		=  xhrEtag ? xhrEtag : es.etag;
 									es.lastModified =  xhrLM   ? xhrLM   : es.lastModified;
 								}
+
++								if(typeof xhr.responseText === 'undefined') {
++									// xhr.responseText isn't set in certain cases
++									// e.g. cross-domain JSON calls to twitter search
++									xhr.responseText = window.JSON.stringify(data);
++								}
 								
 								if ( 	dataNotModified || 
 										es.prevContent == xhr.responseText || 
